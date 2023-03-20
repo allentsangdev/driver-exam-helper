@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { useState, useEffect } from "react";
+import axios from 'axios'
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -30,7 +32,38 @@ function AnswerForm() {
   const [error, setError] = React.useState(false);
   const [helperText, setHelperText] = React.useState('Choose wisely');
 
-  let correctAnswer = mockData.answer
+  // Hooks to handle initial api fetch and next question api fetch
+  const [currentQuestion, setCurrentQuestion] = useState(1)
+  const apiUri = 'https://g1-api.onrender.com/g1-exam-questions/'
+  const [questionData, setQuestionData] = useState([])
+  let correctAnswer = questionData.answer
+
+  const fetchApi = () => {
+    axios.get(apiUri)
+    .then(response=>{
+      setQuestionData(response.data)
+      console.log(questionData[1])
+  })}
+
+  const handleNextQuestion = () => {
+    setCurrentQuestion((prevQuestion) => prevQuestion + 1)
+    console.log(currentQuestion)
+    //setApiUri('https://g1-api.onrender.com/g1-exam-questions/questionNumber/' + currentQuestion)
+    fetchApi()
+  }
+
+  const handlePreviousQuestion = () => {
+    setCurrentQuestion((prevQuestion) => prevQuestion - 1)
+    console.log(currentQuestion)
+    //setApiUri('https://g1-api.onrender.com/g1-exam-questions/questionNumber/' + currentQuestion)
+    fetchApi()
+  }
+
+  // component did mount hook
+  // fetch api when component render
+  useEffect(()=>{
+    fetchApi()
+  },[])
 
   const handleRadioChange = (event) => {
     setValue(event.target.value);
@@ -59,17 +92,17 @@ function AnswerForm() {
         <FormLabel>Please select your answer...</FormLabel>
         <RadioGroup value={value} onChange={handleRadioChange}>
 
-          <FormControlLabel value="1" control={<Radio />} label={mockData.option1} />
-          <FormControlLabel value="2" control={<Radio />} label={mockData.option2} />
-          <FormControlLabel value="3" control={<Radio />} label={mockData.option3} />
-          <FormControlLabel value="4" control={<Radio />} label={mockData.option4} />
+          <FormControlLabel value="1" control={<Radio />} label={questionData.option1} />
+          <FormControlLabel value="2" control={<Radio />} label={questionData.option2} />
+          <FormControlLabel value="3" control={<Radio />} label={questionData.option3} />
+          <FormControlLabel value="4" control={<Radio />} label={questionData.option4} />
 
         </RadioGroup>
 
         <FormHelperText>{helperText}</FormHelperText>
         <Button sx={{ mt: 1, mr: 1 }} type="submit" variant="outlined"> Check Answer </Button>
-        <Button sx={{ mt: 1, mr: 1 }} variant="outlined"> Next Question </Button>
-        <Button sx={{ mt: 1, mr: 1 }} variant="outlined"> Previous Question </Button>
+        <Button sx={{ mt: 1, mr: 1 }} variant="outlined" onClick={handleNextQuestion}> Next Question </Button>
+        <Button sx={{ mt: 1, mr: 1 }} variant="outlined" onClick={handlePreviousQuestion}> Previous Question </Button>
       </FormControl>
     </form>
   );
