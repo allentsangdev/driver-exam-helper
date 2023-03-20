@@ -13,11 +13,6 @@ import FormControl from '@mui/material/FormControl';
 import FormHelperText from '@mui/material/FormHelperText';
 import FormLabel from '@mui/material/FormLabel';
 
-import ArrowCircleRightIcon from '@mui/icons-material/ArrowCircleRight';
-import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
-import IconButton from '@mui/material/IconButton';
-
-
 // mockdata
 const mockData = {
   _id: "641577fa7d058360fb2fc9e7",
@@ -94,7 +89,7 @@ const card = (
 
 export default function QuestionCard() {
   return (
-    <Box sx={{ display: 'flex', flexDirection: "column", justifyContent:'center', alignItems:"center", height: "100vh", padding: 5 }}>
+    <Box sx={{ display: 'flex', flexDirection: "column", justifyContent:'center', alignItems:"center", padding: '65px 30px 0px 30px' , marginTop: 0 }}>
       <Card variant="outlined">{card}</Card>
     </Box>
   );

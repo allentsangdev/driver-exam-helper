@@ -1,9 +1,13 @@
 import "./app.css"
+import Navbar from "./Navbar"
 import QuestionCard from "./QuestionCard"
 
 function App() {
     return(
-        <QuestionCard/>
+        <>
+            <Navbar/>
+            <QuestionCard/>
+        </>
     )
 }
 
