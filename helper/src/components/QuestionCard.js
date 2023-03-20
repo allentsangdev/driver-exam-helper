@@ -1,5 +1,3 @@
-import './QuestionCard.css';
-
 function QuestionCard() {
   return (
       <div id="question_card">
