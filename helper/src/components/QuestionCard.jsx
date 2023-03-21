@@ -7,7 +7,6 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -27,43 +26,31 @@ const mockData = {
     answer: "2"
 }
 
-function AnswerForm() {
+function QuestionCard() {
   const [value, setValue] = React.useState('');
   const [error, setError] = React.useState(false);
   const [helperText, setHelperText] = React.useState('Choose wisely');
 
   // Hooks to handle initial api fetch and next question api fetch
-  const [currentQuestion, setCurrentQuestion] = useState(1)
   const apiUri = 'https://g1-api.onrender.com/g1-exam-questions/'
-  const [questionData, setQuestionData] = useState([])
-  let correctAnswer = questionData.answer
-
-  const fetchApi = () => {
-    axios.get(apiUri)
-    .then(response=>{
-      setQuestionData(response.data)
-      console.log(questionData[1])
-  })}
-
-  const handleNextQuestion = () => {
-    setCurrentQuestion((prevQuestion) => prevQuestion + 1)
-    console.log(currentQuestion)
-    //setApiUri('https://g1-api.onrender.com/g1-exam-questions/questionNumber/' + currentQuestion)
-    fetchApi()
-  }
-
-  const handlePreviousQuestion = () => {
-    setCurrentQuestion((prevQuestion) => prevQuestion - 1)
-    console.log(currentQuestion)
-    //setApiUri('https://g1-api.onrender.com/g1-exam-questions/questionNumber/' + currentQuestion)
-    fetchApi()
-  }
+  const [questionData, setQuestionData ] = useState(null)
+  const [currentQuestion, setCurrentQuestion] = useState(0)
 
   // component did mount hook
   // fetch api when component render
-  useEffect(()=>{
-    fetchApi()
-  },[])
+  // using axios to handle cross-domain requests
+  useEffect(() => {
+    axios.get(apiUri)
+      .then(res => {
+        setQuestionData(res.data)
+      })
+  }, []);
+
+  const switchQuestion = (_switchDirection) => {
+    if (currentQuestion > 0 || _switchDirection === 1) {
+      setCurrentQuestion((currentQuestionState) => currentQuestionState + _switchDirection)
+    }
+  }
 
   const handleRadioChange = (event) => {
     setValue(event.target.value);
@@ -74,7 +61,7 @@ function AnswerForm() {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    if (value === correctAnswer) {
+    if (value === questionData[currentQuestion].answer) {
       setHelperText('You got it!');
       setError(false);
     } else if (value === '') {
@@ -87,46 +74,35 @@ function AnswerForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <FormControl sx={{ m: 3 }} error={error} variant="standard">
-        <FormLabel>Please select your answer...</FormLabel>
-        <RadioGroup value={value} onChange={handleRadioChange}>
+    <Box sx={{ display: 'flex', flexDirection: "column", justifyContent: 'center', alignItems: "center", padding: '65px 30px 0px 30px', marginTop: 0 }}>
+      <Card variant="outlined">
+          <CardContent>
+            { questionData && <Typography sx={{ fontSize: 14 }}> Question: {questionData[currentQuestion].questionNumber} </Typography>}
+            { questionData && <Typography variant="h5" component="div" sx={{ marginTop: 2 }}> {questionData[currentQuestion].question} </Typography>}
+          </CardContent>
+          <CardActions>
+            <form onSubmit={handleSubmit}>
+              <FormControl sx={{ m: 3 }} error={error} variant="standard">
+                <FormLabel>Please select your answer...</FormLabel>
+                <RadioGroup value={value} onChange={handleRadioChange}>
 
-          <FormControlLabel value="1" control={<Radio />} label={questionData.option1} />
-          <FormControlLabel value="2" control={<Radio />} label={questionData.option2} />
-          <FormControlLabel value="3" control={<Radio />} label={questionData.option3} />
-          <FormControlLabel value="4" control={<Radio />} label={questionData.option4} />
+                  {questionData && <FormControlLabel value="0" control={<Radio />} label={questionData[currentQuestion].option1} />}
+                  {questionData && <FormControlLabel value="1" control={<Radio />} label={questionData[currentQuestion].option2} />}
+                  {questionData && <FormControlLabel value="2" control={<Radio />} label={questionData[currentQuestion].option3} />}
+                  {questionData && <FormControlLabel value="3" control={<Radio />} label={questionData[currentQuestion].option4} />}
 
-        </RadioGroup>
+                </RadioGroup>
 
-        <FormHelperText>{helperText}</FormHelperText>
-        <Button sx={{ mt: 1, mr: 1 }} type="submit" variant="outlined"> Check Answer </Button>
-        <Button sx={{ mt: 1, mr: 1 }} variant="outlined" onClick={handleNextQuestion}> Next Question </Button>
-        <Button sx={{ mt: 1, mr: 1 }} variant="outlined" onClick={handlePreviousQuestion}> Previous Question </Button>
-      </FormControl>
-    </form>
-  );
-}
-
-const card = (
-  <React.Fragment>
-    <CardContent>
-      <Typography sx={{ fontSize: 14}}> Question: {mockData.questionNumber} </Typography>
-      <Typography variant="h5" component="div" sx = {{marginTop:2}}> {mockData.question} </Typography>
-    </CardContent>
-    <CardActions>
-      <AnswerForm/>
-    </CardActions>
-  </React.Fragment>
-);
-
-export default function QuestionCard() {
-  return (
-    <Box sx={{ display: 'flex', flexDirection: "column", justifyContent:'center', alignItems:"center", padding: '65px 30px 0px 30px' , marginTop: 0 }}>
-      <Card variant="outlined">{card}</Card>
+                <FormHelperText>{helperText}</FormHelperText>
+                <Button sx={{ mt: 1, mr: 1 }} type="submit" variant="outlined"> Check Answer </Button>
+                <Button sx={{ mt: 1, mr: 1 }} variant="outlined" onClick={ () => switchQuestion(1)}> Next Question </Button>
+                <Button sx={{ mt: 1, mr: 1 }} variant="outlined" onClick={ () => switchQuestion(-1)}> Previous Question </Button>
+              </FormControl>
+            </form>
+          </CardActions>
+      </Card>
     </Box>
   );
 }
 
-
-
+export default QuestionCard;
