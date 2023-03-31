@@ -6,11 +6,12 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
+import { Link } from 'react-router-dom';
 
 export default function Navbar() {
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" sx={{marginBottom:0}}>
+      <AppBar position="static" sx={{marginBottom:0,backgroundColor: '#1e2e46',}}>
         <Toolbar>
           <IconButton
             size="large"
@@ -22,8 +23,9 @@ export default function Navbar() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Driver Exam Helper
+            Driver Quizlet
           </Typography>
+          <Button color="inherit" variant="contained" sx={{backgroundColor:"#B9D9EB"}}><Link to="/" style={{color: 'white', textDecoration: 'none' }}> HOME </Link></Button>
           <Button color="inherit">Login</Button>
         </Toolbar>
       </AppBar>

@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
-import Link from '@mui/material/Link';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import { Link } from 'react-router-dom';
 
 function HomePage() {
 
@@ -12,6 +13,7 @@ function HomePage() {
         
         <Paper
       sx={{
+        height:'100vh',
         position: 'relative',
         backgroundColor: 'grey.800',
         color: '#fff',
@@ -48,9 +50,7 @@ function HomePage() {
             <Typography variant="h5" color="inherit" paragraph>
               Try our quizlet now!
             </Typography>
-            <Link variant="subtitle1" href="#">
-              
-            </Link>
+            <Button color="inherit" variant="contained" sx={{backgroundColor: '#1e2e46'}}><Link to="/quiz" style={{color: 'white', textDecoration: 'none' }}> TRY NOW </Link></Button>
           </Box>
         </Grid>
       </Grid>
