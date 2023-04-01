@@ -29,38 +29,36 @@ const posts = [
 
 function Post(props) {
     return(
-        
-        <Grid item xs={12} md={6}>
-            <CardActionArea component="a" href="#">
-                <Card sx={{ display: 'flex' }}>
-                    <CardContent sx={{ flex: 1 }}>
-                        <Typography component="h2" variant="h5">
-                            {props.post.title}
-                        </Typography>
-                        <Typography variant="subtitle1" color="text.secondary">
-                            {props.post.date}
-                        </Typography>
-                        <Typography variant="subtitle1" color="primary">
-                            Continue reading...
-                        </Typography>
-                    </CardContent>
+        <Grid item xs={8} md={3} lg={3}>
+            <Card sx={{Width:'100%', height:'100%'}}>
+                <CardActionArea component="a" href="#">
                     <CardMedia
                         component="img"
-                        sx={{ width: 160, display: { xs: 'none', sm: 'block' } }}
+                        sx={{ height: 160 }}
                         image={props.post.image}
                     />
-                </Card>
-            </CardActionArea>
+                    <CardContent>
+                        <Typography variant="h6"> {props.post.title} </Typography>
+                        <Typography variant="subtitle1" color="text.secondary"> {props.post.date} </Typography>
+                    </CardContent>
+                </CardActionArea>
+            </Card>
+            
         </Grid>
+        
     )
 }
 
-
 function Blog() {
     return (
-        <>
-            {posts.map((post) => <Post post={post}/>)}
-        </>
+        
+            <Grid container direction="row" justifyContent="center" alignItems='stretch' spacing={2} margin="2">
+                <Grid item textAlign="center" xs={12}><Typography variant="h5"> QUIZLET BLOG </Typography> </Grid>
+                    
+                {posts.map((post) => <Post post={post}/>)}
+
+            </Grid>
+        
     )
 }
 
