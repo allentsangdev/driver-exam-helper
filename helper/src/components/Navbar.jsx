@@ -25,7 +25,7 @@ export default function Navbar() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Driver Quizlet
           </Typography>
-          <Button color="inherit" variant="contained" sx={{backgroundColor:"#B9D9EB"}}><Link to="/" style={{color: 'white', textDecoration: 'none' }}> HOME </Link></Button>
+          <Button color="inherit" variant="contained" sx={{backgroundColor:"#4682B4"}}><Link to="/" style={{color: 'white', textDecoration: 'none' }}> HOME </Link></Button>
           <Button color="inherit">Login</Button>
         </Toolbar>
       </AppBar>
