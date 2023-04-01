@@ -5,6 +5,9 @@ import Card from '@mui/material/Card';
 import CardActionArea from '@mui/material/CardActionArea';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
+import IconButton from '@mui/material/IconButton';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import ShareIcon from '@mui/icons-material/Share';
 
 const posts = [
     {
@@ -29,9 +32,9 @@ const posts = [
 
 function Post(props) {
     return(
-        <Grid item xs={8} md={3} lg={3}>
+        <Grid item xs={8} md={3}>
             <Card sx={{Width:'100%', height:'100%'}}>
-                <CardActionArea component="a" href="#">
+                <CardActionArea component="a" href="#" sx={{Width:'100%', height:'100%'}}>
                     <CardMedia
                         component="img"
                         sx={{ height: 160 }}
@@ -40,12 +43,10 @@ function Post(props) {
                     <CardContent>
                         <Typography variant="h6"> {props.post.title} </Typography>
                         <Typography variant="subtitle1" color="text.secondary"> {props.post.date} </Typography>
-                    </CardContent>
-                </CardActionArea>
+                    </CardContent>                
+                </CardActionArea>            
             </Card>
-            
         </Grid>
-        
     )
 }
 
@@ -54,9 +55,7 @@ function Blog() {
         
             <Grid container direction="row" justifyContent="center" alignItems='stretch' spacing={2} margin="2">
                 <Grid item textAlign="center" xs={12}><Typography variant="h5"> QUIZLET BLOG </Typography> </Grid>
-                    
                 {posts.map((post) => <Post post={post}/>)}
-
             </Grid>
         
     )
