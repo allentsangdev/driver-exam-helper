@@ -84,14 +84,15 @@ function QuestionCard() {
 
   return (
     <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: "center", marginBottom:'12em', marginTop:'5em' }}>
-      <Card variant="outlined" sx={{padding:'1em'}}>
-          <CardContent>
+      <Card variant="outlined" sx={{padding:'1em', width:'35em'}}>
+          <CardContent sx={{height:'10em'}}>
             { questionData && <Typography paragraph> Question: {questionData[currentQuestion].questionNumber} </Typography>}
             { questionData && <Typography variant="h5" > {questionData[currentQuestion].question} </Typography>}
           </CardContent>
           
             <form onSubmit={handleSubmit} style={{margin:'1em'}}>
                 <FormLabel>Please select your answer...</FormLabel>
+                
                 <RadioGroup value={value} onChange={handleRadioChange}>
                   {questionData && <FormControlLabel value="0" control={<Radio />} label={questionData[currentQuestion].option1} />}
                   {questionData && <FormControlLabel value="1" control={<Radio />} label={questionData[currentQuestion].option2} />}
@@ -100,13 +101,16 @@ function QuestionCard() {
                 </RadioGroup>
 
                 <FormHelperText>{helperText}</FormHelperText>
+                
                 <Box display='flex' justifyContent='center'>
                   <Button type="submit" variant="outlined"> Check Answer </Button>
-                </Box>
-            
+                </Box>  
             </form>
-          
-          <Pagination count={161} variant="outlined" showFirstButton showLastButton onChange={handlePageChange} />
+
+            <Box display='flex' justifyContent='center'>
+              <Pagination count={161} variant="outlined" showFirstButton showLastButton onChange={handlePageChange} />
+            </Box>
+
       </Card>
     </Box>
   );
