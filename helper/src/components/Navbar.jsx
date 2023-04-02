@@ -17,7 +17,6 @@ export default function Navbar() {
             size="large"
             edge="start"
             color="inherit"
-            aria-label="menu"
             sx={{ mr: 2 }}
           >
             <MenuIcon />
@@ -25,7 +24,7 @@ export default function Navbar() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Driver Quizlet
           </Typography>
-          <Link to="/" style={{color: 'white', textDecoration: 'none'}}> <Button color="inherit" variant="contained" sx={{backgroundColor:"#4682B4"}}>HOME</Button></Link>
+          <Link to="/" style={{color: 'white', textDecoration: 'none'}}> <Button variant="contained" sx={{backgroundColor:"#4682B4"}}>HOME</Button></Link>
           <Button color="inherit">Login</Button>
         </Toolbar>
       </AppBar>

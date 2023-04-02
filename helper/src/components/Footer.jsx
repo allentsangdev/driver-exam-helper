@@ -25,7 +25,7 @@ function Footer() {
 
   return (
     <Box align='center' >
-        <Divider variant="fullWidth" style={{margin:'1rem', width:'95%'}} />
+        <Divider variant="fullWidth" style={{margin:'1rem', width:'75%'}} />
         <img src={'./assets/driver-quizlet-logo.png'} width='95' height='60'/>
         <Copyright />
         <InstagramIcon sx={{margin:1}}></InstagramIcon>
