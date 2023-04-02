@@ -21,9 +21,9 @@ export default function Navbar() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Driver Quizlet
-          </Typography>
+          <Box sx={{ flexGrow: 1}}>
+          <Typography textAlign='center' borderRadius='4%' bgcolor='white' color='#1e2e46' width='120px' sx={{cursor:'default'}} > Driver Quizlet </Typography>
+          </Box>
           <Link to="/" style={{color: 'white', textDecoration: 'none'}}> <Button variant="contained" sx={{backgroundColor:"#4682B4"}}>HOME</Button></Link>
           <Button color="inherit">Login</Button>
         </Toolbar>
