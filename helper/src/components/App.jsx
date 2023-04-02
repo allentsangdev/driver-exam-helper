@@ -2,7 +2,8 @@ import "./app.css"
 import HomePage from "./HomePage";
 import Navbar from "./Navbar"
 import QuestionCard from "./QuestionCard"
-import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
+import { BrowserRouter, Route, Routes} from 'react-router-dom';
+import Footer from "./Footer";
 
 function App() {
     return(
@@ -13,6 +14,7 @@ function App() {
                 <Route path='/' element={<HomePage/>} />
                 <Route path='/quiz' element={<QuestionCard/>} exact />
             </Routes>
+            <Footer/>
         </BrowserRouter>
         
     )

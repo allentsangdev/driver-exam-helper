@@ -11,11 +11,10 @@ function HomePage() {
 
     return(
         <>
-            <Paper
+            <Paper square='true'
                 sx={{
                     height: '45vh',
                     position: 'relative',
-                    backgroundColor: 'grey.800',
                     color: '#fff',
                     mb: 4,
                     backgroundSize: 'cover',
@@ -50,7 +49,7 @@ function HomePage() {
                             <Typography variant="h5" color="inherit" paragraph>
                                 Try our quizlet now!
                             </Typography>
-                            <Button color="inherit" variant="contained" sx={{ backgroundColor: '#4682B4' }}><Link to="/quiz" style={{ color: 'white', textDecoration: 'none' }}> TRY NOW </Link></Button>
+                            <Link to="/quiz" style={{ color: 'white', textDecoration: 'none' }}><Button color="inherit" variant="contained" sx={{ backgroundColor: '#4682B4' }}>TRY NOW</Button> </Link>
                         </Box>
                     </Grid>
                 </Grid>
