@@ -3,17 +3,19 @@ import { useState, useEffect } from "react";
 import axios from 'axios'
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import FormControl from '@mui/material/FormControl';
 import FormHelperText from '@mui/material/FormHelperText';
 import FormLabel from '@mui/material/FormLabel';
 import Pagination from '@mui/material/Pagination';
+import CardHeader from '@mui/material/CardHeader';
+import StarOutlineOutlinedIcon from '@mui/icons-material/StarOutlineOutlined';
+import IconButton from '@mui/material/IconButton';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 // mockdata
 const mockData = {
@@ -85,6 +87,11 @@ function QuestionCard() {
   return (
     <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: "center", marginBottom:'12em', marginTop:'5em' }}>
       <Card variant="outlined" sx={{padding:'1em', width:'35em'}}>
+          
+          <CardHeader action={<IconButton>
+            <MoreVertIcon />
+          </IconButton>}/>
+            
           <CardContent sx={{height:'10em'}}>
             { questionData && <Typography paragraph> Question: {questionData[currentQuestion].questionNumber} </Typography>}
             { questionData && <Typography variant="h5" > {questionData[currentQuestion].question} </Typography>}
