@@ -13,6 +13,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormHelperText from '@mui/material/FormHelperText';
 import FormLabel from '@mui/material/FormLabel';
+import Pagination from '@mui/material/Pagination';
 
 // mockdata
 const mockData = {
@@ -46,11 +47,19 @@ function QuestionCard() {
       })
   }, []);
 
+  /*
   const switchQuestion = (_switchDirection) => {
     if (currentQuestion > 0 || _switchDirection === 1) {
       setCurrentQuestion((currentQuestionState) => currentQuestionState + _switchDirection)
     }
   }
+  */
+
+  const handlePageChange = (event, pageSelected) => {
+    console.log(questionData[pageSelected])
+    setCurrentQuestion(pageSelected-1) // since array index starts at 0. -1 to match array index
+  }
+
 
   const handleRadioChange = (event) => {
     setValue(event.target.value);
@@ -74,32 +83,30 @@ function QuestionCard() {
   };
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: "column", justifyContent: 'center', alignItems: "center", padding: '65px 30px 0px 30px', marginTop: 0, marginBottom:'10em' }}>
-      <Card variant="outlined">
+    <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: "center", marginBottom:'12em', marginTop:'5em' }}>
+      <Card variant="outlined" sx={{padding:'1em'}}>
           <CardContent>
-            { questionData && <Typography sx={{ fontSize: 14 }}> Question: {questionData[currentQuestion].questionNumber} </Typography>}
-            { questionData && <Typography variant="h5" component="div" sx={{ marginTop: 2 }}> {questionData[currentQuestion].question} </Typography>}
+            { questionData && <Typography paragraph> Question: {questionData[currentQuestion].questionNumber} </Typography>}
+            { questionData && <Typography variant="h5" > {questionData[currentQuestion].question} </Typography>}
           </CardContent>
-          <CardActions>
-            <form onSubmit={handleSubmit}>
-              <FormControl sx={{ m: 3 }} error={error} variant="standard">
+          
+            <form onSubmit={handleSubmit} style={{margin:'1em'}}>
                 <FormLabel>Please select your answer...</FormLabel>
                 <RadioGroup value={value} onChange={handleRadioChange}>
-
                   {questionData && <FormControlLabel value="0" control={<Radio />} label={questionData[currentQuestion].option1} />}
                   {questionData && <FormControlLabel value="1" control={<Radio />} label={questionData[currentQuestion].option2} />}
                   {questionData && <FormControlLabel value="2" control={<Radio />} label={questionData[currentQuestion].option3} />}
                   {questionData && <FormControlLabel value="3" control={<Radio />} label={questionData[currentQuestion].option4} />}
-
                 </RadioGroup>
 
                 <FormHelperText>{helperText}</FormHelperText>
-                <Button sx={{ mt: 1, mr: 1 }} type="submit" variant="outlined"> Check Answer </Button>
-                <Button sx={{ mt: 1, mr: 1 }} variant="outlined" onClick={ () => switchQuestion(1)}> Next Question </Button>
-                <Button sx={{ mt: 1, mr: 1 }} variant="outlined" onClick={ () => switchQuestion(-1)}> Previous Question </Button>
-              </FormControl>
+                <Box display='flex' justifyContent='center'>
+                  <Button type="submit" variant="outlined"> Check Answer </Button>
+                </Box>
+            
             </form>
-          </CardActions>
+          
+          <Pagination count={161} variant="outlined" showFirstButton showLastButton onChange={handlePageChange} />
       </Card>
     </Box>
   );
