@@ -13,7 +13,7 @@ function HomePage() {
         <>
             <Paper square='true'
                 sx={{
-                    height: '50vh',
+                    height: '100%',
                     position: 'relative',
                     color: '#fff',
                     mb: 4,
@@ -23,17 +23,6 @@ function HomePage() {
                     backgroundImage: `url('./assets/homepage-background.jpeg')`,
                 }}
             >
-
-                <Box
-                    sx={{
-                        position: 'absolute',
-                        top: 0,
-                        bottom: 0,
-                        right: 0,
-                        left: 0,
-                        backgroundColor: 'rgba(0,0,0,.3)',
-                    }}
-                />
                 <Grid container>
                     <Grid item md={6}>
                         <Box
