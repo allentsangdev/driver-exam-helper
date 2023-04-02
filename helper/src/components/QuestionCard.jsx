@@ -40,7 +40,6 @@ function QuestionCard() {
 
   // component did mount hook
   // fetch api when component render
-  // using axios to handle cross-domain requests
   useEffect(() => {
     axios.get(apiUri)
       .then(res => {
