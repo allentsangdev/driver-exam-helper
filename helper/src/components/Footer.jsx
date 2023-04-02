@@ -1,12 +1,16 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import TelegramIcon from '@mui/icons-material/Telegram';
+import GitHubIcon from '@mui/icons-material/GitHub';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import Divider from '@mui/material/Divider';
 
 function Copyright() {
   return (
-    <Typography variant="body2" color="text.secondary" align="center">
+    <Typography variant="subtitle2" fontWeight='light' color="text.secondary" align="center">
       {'Copyright © '}
       <Link color="inherit" href="#">
         DriverQuizlet
@@ -17,28 +21,17 @@ function Copyright() {
   );
 }
 
-function Contact() {
-    return(
-        <>
-        </>
-    )
-}
-
-function AboutUs() {
-    return(
-        <>
-        </>
-    )
-}
-
 function Footer() {
 
   return (
-    <Box sx={{ bgcolor: '#E1EBEE', py: 3, marginTop:100, position:"absolute", bottom:0, right:0, left:0 }}>
-      <Container>
-       
+    <Box align='center' >
+        <Divider variant="fullWidth" style={{margin:'1rem', width:'95%'}} />
+        <img src={'./assets/driver-quizlet-logo.png'} width='95' height='60'/>
         <Copyright />
-      </Container>
+        <InstagramIcon sx={{margin:1}}></InstagramIcon>
+        <TelegramIcon sx={{margin:1}}></TelegramIcon>
+        <GitHubIcon sx={{margin:1}}></GitHubIcon>
+        <LinkedInIcon sx={{margin:1}}></LinkedInIcon>
     </Box>
   );
 }
