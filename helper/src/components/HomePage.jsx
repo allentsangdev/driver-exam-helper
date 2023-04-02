@@ -13,7 +13,7 @@ function HomePage() {
         <>
             <Paper square='true'
                 sx={{
-                    height: '45vh',
+                    height: '50vh',
                     position: 'relative',
                     color: '#fff',
                     mb: 4,

@@ -74,7 +74,7 @@ function QuestionCard() {
   };
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: "column", justifyContent: 'center', alignItems: "center", padding: '65px 30px 0px 30px', marginTop: 0 }}>
+    <Box sx={{ display: 'flex', flexDirection: "column", justifyContent: 'center', alignItems: "center", padding: '65px 30px 0px 30px', marginTop: 0, marginBottom:'10em' }}>
       <Card variant="outlined">
           <CardContent>
             { questionData && <Typography sx={{ fontSize: 14 }}> Question: {questionData[currentQuestion].questionNumber} </Typography>}
