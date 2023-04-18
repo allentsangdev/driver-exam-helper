@@ -17,19 +17,6 @@ import IconButton from '@mui/material/IconButton';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import CircularProgress from '@mui/material/CircularProgress';
 
-
-// mockdata
-const mockData = {
-  _id: "641577fa7d058360fb2fc9e7",
-    questionNumber: "161",
-    question: "When approaching an intersection and the traffic lights are not working, you should:",
-    option1: "Yield to the traffic to your right",
-    option2: "Wait until there are no vehicles before proceeding",
-    option3: "Treat it as an all-ways stop sign",
-    option4: "Slow down and proceed with caution",
-    answer: "2"
-}
-
 function QuestionCard() {
   const [value, setValue] = React.useState('');
   const [error, setError] = React.useState(false);
@@ -88,6 +75,23 @@ function QuestionCard() {
     }
   };
 
+  // Question component
+  function Question() {
+    if(questionData[currentQuestion].question.startsWith('=IMAGE')) {
+      const regex = /=IMAGE\("(.+)"\)/;
+      const match = regex.exec(questionData[currentQuestion].question);
+      const imagePath = match[1];
+
+      return (
+        <Box><img src={imagePath} alt="question" style={{ width: '9em', height: '9em' }} /></Box>
+      );
+    } else {
+      return (
+        <Typography variant="h5" > {questionData[currentQuestion].question} </Typography>
+      )
+    }
+  }
+
   const cardContent = 
   <>
     <CardHeader action={<IconButton>
@@ -96,7 +100,9 @@ function QuestionCard() {
       
     <CardContent sx={{height:'10em'}}>
       { questionData && <Typography paragraph> Question: {questionData[currentQuestion].questionNumber} </Typography>}
-      { questionData && <Typography variant="h5" > {questionData[currentQuestion].question} </Typography>}
+
+      { questionData && <Question/>}
+      
     </CardContent>
     
       <form onSubmit={handleSubmit} style={{margin:'1em'}}>
@@ -133,3 +139,16 @@ function QuestionCard() {
 }
 
 export default QuestionCard;
+
+/* mockdata
+const mockData = {
+  _id: "641577fa7d058360fb2fc9e7",
+    questionNumber: "161",
+    question: "When approaching an intersection and the traffic lights are not working, you should:",
+    option1: "Yield to the traffic to your right",
+    option2: "Wait until there are no vehicles before proceeding",
+    option3: "Treat it as an all-ways stop sign",
+    option4: "Slow down and proceed with caution",
+    answer: "2"
+}
+*/
