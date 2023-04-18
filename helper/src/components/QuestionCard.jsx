@@ -15,6 +15,8 @@ import Pagination from '@mui/material/Pagination';
 import CardHeader from '@mui/material/CardHeader';
 import IconButton from '@mui/material/IconButton';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import CircularProgress from '@mui/material/CircularProgress';
+
 
 // mockdata
 const mockData = {
@@ -38,12 +40,16 @@ function QuestionCard() {
   const [questionData, setQuestionData ] = useState(null)
   const [currentQuestion, setCurrentQuestion] = useState(0)
 
+  //hool to handle loading spinner
+  const [loadStatus, setLoadStatus] = useState(false)
+
   // component did mount hook
   // fetch api when component render
   useEffect(() => {
     axios.get(apiUri)
       .then(res => {
         setQuestionData(res.data)
+        setLoadStatus(true)
       })
   }, []);
 
@@ -82,39 +88,44 @@ function QuestionCard() {
     }
   };
 
+  const cardContent = 
+  <>
+    <CardHeader action={<IconButton>
+      <MoreVertIcon />
+    </IconButton>}/>
+      
+    <CardContent sx={{height:'10em'}}>
+      { questionData && <Typography paragraph> Question: {questionData[currentQuestion].questionNumber} </Typography>}
+      { questionData && <Typography variant="h5" > {questionData[currentQuestion].question} </Typography>}
+    </CardContent>
+    
+      <form onSubmit={handleSubmit} style={{margin:'1em'}}>
+          <FormLabel>Please select your answer...</FormLabel>
+          
+          <RadioGroup value={value} onChange={handleRadioChange}>
+            {questionData && <FormControlLabel value="0" control={<Radio />} label={questionData[currentQuestion].option1} />}
+            {questionData && <FormControlLabel value="1" control={<Radio />} label={questionData[currentQuestion].option2} />}
+            {questionData && <FormControlLabel value="2" control={<Radio />} label={questionData[currentQuestion].option3} />}
+            {questionData && <FormControlLabel value="3" control={<Radio />} label={questionData[currentQuestion].option4} />}
+          </RadioGroup>
+
+          <FormHelperText>{helperText}</FormHelperText>
+          
+          <Box display='flex' justifyContent='center'>
+            <Button type="submit" variant="outlined"> Check Answer </Button>
+          </Box>  
+      </form>
+
+      <Box display='flex' justifyContent='center'>
+        <Pagination count={161} variant="outlined" showFirstButton showLastButton onChange={handlePageChange} />
+      </Box>
+    </>
+
   return (
     <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: "center", marginBottom:'12em', marginTop:'5em' }}>
       <Card variant="outlined" sx={{padding:'1em', width:'35em'}}>
           
-          <CardHeader action={<IconButton>
-            <MoreVertIcon />
-          </IconButton>}/>
-            
-          <CardContent sx={{height:'10em'}}>
-            { questionData && <Typography paragraph> Question: {questionData[currentQuestion].questionNumber} </Typography>}
-            { questionData && <Typography variant="h5" > {questionData[currentQuestion].question} </Typography>}
-          </CardContent>
-          
-            <form onSubmit={handleSubmit} style={{margin:'1em'}}>
-                <FormLabel>Please select your answer...</FormLabel>
-                
-                <RadioGroup value={value} onChange={handleRadioChange}>
-                  {questionData && <FormControlLabel value="0" control={<Radio />} label={questionData[currentQuestion].option1} />}
-                  {questionData && <FormControlLabel value="1" control={<Radio />} label={questionData[currentQuestion].option2} />}
-                  {questionData && <FormControlLabel value="2" control={<Radio />} label={questionData[currentQuestion].option3} />}
-                  {questionData && <FormControlLabel value="3" control={<Radio />} label={questionData[currentQuestion].option4} />}
-                </RadioGroup>
-
-                <FormHelperText>{helperText}</FormHelperText>
-                
-                <Box display='flex' justifyContent='center'>
-                  <Button type="submit" variant="outlined"> Check Answer </Button>
-                </Box>  
-            </form>
-
-            <Box display='flex' justifyContent='center'>
-              <Pagination count={161} variant="outlined" showFirstButton showLastButton onChange={handlePageChange} />
-            </Box>
+          {loadStatus? cardContent : <CardContent sx={{height:'10em'}}><CircularProgress/></CardContent> }
 
       </Card>
     </Box>
