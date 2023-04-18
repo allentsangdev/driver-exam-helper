@@ -150,5 +150,5 @@ const mockData = {
     option3: "Treat it as an all-ways stop sign",
     option4: "Slow down and proceed with caution",
     answer: "2"
-}
+} 
 */
