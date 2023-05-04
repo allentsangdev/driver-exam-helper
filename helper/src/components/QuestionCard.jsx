@@ -16,6 +16,7 @@ import CardHeader from '@mui/material/CardHeader';
 import IconButton from '@mui/material/IconButton';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import CircularProgress from '@mui/material/CircularProgress';
+import Grid from '@mui/material/Grid';
 
 function QuestionCard() {
   const [value, setValue] = React.useState('');
@@ -127,11 +128,21 @@ function QuestionCard() {
       </Box>
     </>
 
+    const loadingContent = 
+    <>
+    <Grid container display='flex' flexDirection='column' justifyContent='center' alignItems='center' sx={{height:'65vh'}}>
+      <Grid item >
+        <CircularProgress/>
+      </Grid>
+
+    </Grid>
+    </>
+
   return (
     <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: "center", marginBottom:'12em', marginTop:'5em' }}>
       <Card variant="outlined" sx={{padding:'1em', width:'35em'}}>
           
-          {loadStatus? cardContent : <CardContent sx={{height:'10em'}}><CircularProgress/></CardContent> }
+          {loadStatus? cardContent : loadingContent }
 
       </Card>
     </Box>
