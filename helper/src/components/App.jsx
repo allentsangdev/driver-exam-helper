@@ -12,9 +12,9 @@ import Footer from "./Footer";
 import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@mui/material/styles';
 import { AuthProvider } from "../contexts/AuthContext";
-import blog1 from "./blog1.md"
-import blog2 from "./blog2.md"
-import blog3 from "./blog3.md"
+import blog1 from "./markdowns/blog1.md"
+import blog2 from "./markdowns/blog2.md"
+import blog3 from "./markdowns/blog3.md"
 
 const blog1BgImage = `url('./assets/post-new-driver-mistake.jpeg')`
 const blog2BgImage = `url('./assets/post-winter-driving.jpeg')`
