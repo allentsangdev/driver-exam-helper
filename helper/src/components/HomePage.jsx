@@ -10,7 +10,7 @@ function HomePage() {
     return (
         <>
             <Grid container display='flex' justifyContent='center'>
-                <Grid container item display='flex' flexDirection='column' gap='0.5em' p='2em' md={9} height='20em' boxShadow='2'
+                <Grid container item display='flex' flexDirection='column' gap='0.5em' p='2em' md={9} height='22em' boxShadow='2'
                     style={{
                         backgroundImage: `url('./assets/homepage-background.jpeg')`,
                         marginBottom: '3em',
@@ -30,7 +30,7 @@ function HomePage() {
                             Try our quizlet now!
                         </Typography>
                     </Grid>
-                    <Grid item>
+                    <Grid item mb='0'>
                         <Link to="/quiz" style={{ color: 'white', textDecoration: 'none' }}><Button variant="contained" sx={{ backgroundColor: '#4682B4' }}>TRY NOW</Button> </Link>
                     </Grid>
                 </Grid>
