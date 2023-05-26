@@ -44,6 +44,7 @@ function QuestionCard() {
   const handlePageChange = (event, pageSelected) => {
     console.log(questionData[pageSelected])
     setCurrentQuestion(pageSelected-1) // since array index starts at 0. -1 to match array index
+    setValue(null)
   }
 
   const handleRadioChange = (event) => {
