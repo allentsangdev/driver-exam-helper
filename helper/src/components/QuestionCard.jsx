@@ -23,6 +23,12 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import TurnedInIcon from '@mui/icons-material/TurnedIn';
 import BugReportIcon from '@mui/icons-material/BugReport';
+import TextField from '@mui/material/TextField';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 
 function QuestionCard() {
   const [value, setValue] = React.useState('');
@@ -84,6 +90,12 @@ function QuestionCard() {
     setAnchorEl(null)
   }
 
+  // Hooks and Functinos to handle report an issue dialog
+  const [issueDialogOpen, setIssueDialogOpen] = React.useState(false)
+  const handleIssueClick = () => {
+    setIssueDialogOpen(prevIssueDialogOpen => !prevIssueDialogOpen)
+  }
+
   // Question component
   function Question() {
     if(questionData[currentQuestion].question.startsWith('=IMAGE')) {
@@ -121,7 +133,7 @@ function QuestionCard() {
                 primary='Save this question'
               />
             </ListItemButton>
-            <ListItemButton>
+            <ListItemButton onClick={handleIssueClick}>
               <ListItemIcon>
                 <BugReportIcon />
               </ListItemIcon>
@@ -129,6 +141,28 @@ function QuestionCard() {
                 primary='Report an issue'
               />
             </ListItemButton>
+
+            <Dialog open={issueDialogOpen} onClose={handleIssueClick}>
+              <DialogTitle>Report an Issue</DialogTitle>
+              <DialogContent>
+                <DialogContentText>
+                  Please describe the issue, and we will get back to you after investigation. Thanks!
+                </DialogContentText>
+                <TextField
+                  autoFocus
+                  margin="dense"
+                  id="name"
+                  label="Describe the issue"
+                  type="text"
+                  fullWidth
+                  variant="standard"
+                />
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={handleIssueClick}>Cancel</Button>
+                <Button onClick={null}>Submit</Button>
+              </DialogActions>
+            </Dialog>
         </Popover>
       </>
       }
