@@ -41,19 +41,10 @@ function QuestionCard() {
       })
   }, []);
 
-  /*
-  const switchQuestion = (_switchDirection) => {
-    if (currentQuestion > 0 || _switchDirection === 1) {
-      setCurrentQuestion((currentQuestionState) => currentQuestionState + _switchDirection)
-    }
-  }
-  */
-
   const handlePageChange = (event, pageSelected) => {
     console.log(questionData[pageSelected])
     setCurrentQuestion(pageSelected-1) // since array index starts at 0. -1 to match array index
   }
-
 
   const handleRadioChange = (event) => {
     setValue(event.target.value);
@@ -116,7 +107,7 @@ function QuestionCard() {
             {questionData && <FormControlLabel value="3" control={<Radio />} label={questionData[currentQuestion].option4} />}
           </RadioGroup>
 
-          <FormHelperText>{helperText}</FormHelperText>
+          <FormHelperText error={error}>{helperText}</FormHelperText>
           
           <Box display='flex' justifyContent='center'>
             <Button type="submit" variant="outlined"> Check Answer </Button>
