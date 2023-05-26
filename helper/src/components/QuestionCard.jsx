@@ -17,6 +17,12 @@ import IconButton from '@mui/material/IconButton';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import CircularProgress from '@mui/material/CircularProgress';
 import Grid from '@mui/material/Grid';
+import Popover from '@mui/material/Popover';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import TurnedInIcon from '@mui/icons-material/TurnedIn';
+import BugReportIcon from '@mui/icons-material/BugReport';
 
 function QuestionCard() {
   const [value, setValue] = React.useState('');
@@ -28,7 +34,7 @@ function QuestionCard() {
   const [questionData, setQuestionData ] = useState(null)
   const [currentQuestion, setCurrentQuestion] = useState(0)
 
-  //hool to handle loading spinner
+  //hook to handle loading spinner
   const [loadStatus, setLoadStatus] = useState(false)
 
   // component did mount hook
@@ -68,6 +74,16 @@ function QuestionCard() {
     }
   };
 
+  // Hooks and Functions to handle more button popover
+  const [anchorEl, setAnchorEl] = React.useState(null)
+  const open = Boolean(anchorEl)
+  const handleMoreClick = (event) => {
+    setAnchorEl(event.currentTarget)
+  }
+  const handleMoreClose = () => {
+    setAnchorEl(null)
+  }
+
   // Question component
   function Question() {
     if(questionData[currentQuestion].question.startsWith('=IMAGE')) {
@@ -87,9 +103,37 @@ function QuestionCard() {
 
   const cardContent = 
   <>
-    <CardHeader action={<IconButton>
-      <MoreVertIcon />
-    </IconButton>}/>
+    <CardHeader action={
+      <>
+        <IconButton onClick={handleMoreClick}>
+          <MoreVertIcon />
+        </IconButton>
+        <Popover 
+          open={open}
+          anchorEl={anchorEl}
+          onClose={handleMoreClose}
+        >
+            <ListItemButton>
+              <ListItemIcon>
+                <TurnedInIcon />
+              </ListItemIcon>
+              <ListItemText
+                primary='Save this question'
+              />
+            </ListItemButton>
+            <ListItemButton>
+              <ListItemIcon>
+                <BugReportIcon />
+              </ListItemIcon>
+              <ListItemText
+                primary='Report an issue'
+              />
+            </ListItemButton>
+        </Popover>
+      </>
+      }
+      
+    />
       
     <CardContent sx={{height:'10em'}}>
       { questionData && <Typography paragraph> Question: {questionData[currentQuestion].questionNumber} </Typography>}
@@ -142,16 +186,3 @@ function QuestionCard() {
 }
 
 export default QuestionCard;
-
-/* mockdata
-const mockData = {
-  _id: "641577fa7d058360fb2fc9e7",
-    questionNumber: "161",
-    question: "When approaching an intersection and the traffic lights are not working, you should:",
-    option1: "Yield to the traffic to your right",
-    option2: "Wait until there are no vehicles before proceeding",
-    option3: "Treat it as an all-ways stop sign",
-    option4: "Slow down and proceed with caution",
-    answer: "2"
-} 
-*/
