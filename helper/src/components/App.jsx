@@ -15,6 +15,7 @@ import { AuthProvider } from "../contexts/AuthContext";
 import blog1 from "./markdowns/blog1.md"
 import blog2 from "./markdowns/blog2.md"
 import blog3 from "./markdowns/blog3.md"
+import { FirestoreProvider } from "../contexts/FirestoreContext";
 
 const blog1BgImage = `url('./assets/post-new-driver-mistake.jpeg')`
 const blog2BgImage = `url('./assets/post-winter-driving.jpeg')`
@@ -30,23 +31,25 @@ function App() {
     return(
         
         <AuthProvider>
-            <ThemeProvider theme={theme}>
+            <FirestoreProvider>
+                <ThemeProvider theme={theme}>
 
-            <BrowserRouter>
-                <PrivateRoute component={AuthNavbar} />
-                <Routes>
-                    <Route path='/' element={<HomePage/>} />
-                    <Route path='/blog-01' element={<BlogContent blog={blog1} backgroundImage={blog1BgImage}/>} />
-                    <Route path='/blog-02' element={<BlogContent blog={blog2} backgroundImage={blog2BgImage}/>} />
-                    <Route path='/blog-03' element={<BlogContent blog={blog3} backgroundImage={blog3BgImage}/>} />
-                    <Route path='/quiz' element={<QuestionCard/>} exact />
-                    <Route path='/signin' element={<SignIn/>} exact />
-                    <Route path='/signup' element={<SignUp/>} exact />
-                    <Route path='/forgot-password' element={<ForgotPassword/>} exact />
-                </Routes>
-                <Footer/>
-            </BrowserRouter>
-            </ThemeProvider>
+                <BrowserRouter>
+                    <PrivateRoute component={AuthNavbar} />
+                    <Routes>
+                        <Route path='/' element={<HomePage/>} />
+                        <Route path='/blog-01' element={<BlogContent blog={blog1} backgroundImage={blog1BgImage}/>} />
+                        <Route path='/blog-02' element={<BlogContent blog={blog2} backgroundImage={blog2BgImage}/>} />
+                        <Route path='/blog-03' element={<BlogContent blog={blog3} backgroundImage={blog3BgImage}/>} />
+                        <Route path='/quiz' element={<QuestionCard/>} exact />                        
+                        <Route path='/signin' element={<SignIn/>} exact />
+                        <Route path='/signup' element={<SignUp/>} exact />
+                        <Route path='/forgot-password' element={<ForgotPassword/>} exact />
+                    </Routes>
+                    <Footer/>
+                </BrowserRouter>
+                </ThemeProvider>
+            </FirestoreProvider>
         </AuthProvider>
 
     )

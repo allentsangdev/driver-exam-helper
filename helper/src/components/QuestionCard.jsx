@@ -12,23 +12,9 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormHelperText from '@mui/material/FormHelperText';
 import FormLabel from '@mui/material/FormLabel';
 import Pagination from '@mui/material/Pagination';
-import CardHeader from '@mui/material/CardHeader';
-import IconButton from '@mui/material/IconButton';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
 import CircularProgress from '@mui/material/CircularProgress';
 import Grid from '@mui/material/Grid';
-import Popover from '@mui/material/Popover';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import TurnedInIcon from '@mui/icons-material/TurnedIn';
-import BugReportIcon from '@mui/icons-material/BugReport';
-import TextField from '@mui/material/TextField';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
+import QuestionCardHeader from './QuestionCardHeader';
 
 function QuestionCard() {
   const [value, setValue] = React.useState('');
@@ -40,11 +26,11 @@ function QuestionCard() {
   const [questionData, setQuestionData ] = useState(null)
   const [currentQuestion, setCurrentQuestion] = useState(0)
 
-  //hook to handle loading spinner
+  // Hook to handle loading spinner
   const [loadStatus, setLoadStatus] = useState(false)
 
-  // component did mount hook
-  // fetch api when component render
+  // Component did mount hook
+  // Fetch api when component render
   useEffect(() => {
     axios.get(apiUri)
       .then(res => {
@@ -80,22 +66,6 @@ function QuestionCard() {
     }
   };
 
-  // Hooks and Functions to handle more button popover
-  const [anchorEl, setAnchorEl] = React.useState(null)
-  const open = Boolean(anchorEl)
-  const handleMoreClick = (event) => {
-    setAnchorEl(event.currentTarget)
-  }
-  const handleMoreClose = () => {
-    setAnchorEl(null)
-  }
-
-  // Hooks and Functinos to handle report an issue dialog
-  const [issueDialogOpen, setIssueDialogOpen] = React.useState(false)
-  const handleIssueClick = () => {
-    setIssueDialogOpen(prevIssueDialogOpen => !prevIssueDialogOpen)
-  }
-
   // Question component
   function Question() {
     if(questionData[currentQuestion].question.startsWith('=IMAGE')) {
@@ -115,60 +85,9 @@ function QuestionCard() {
 
   const cardContent = 
   <>
-    <CardHeader action={
-      <>
-        <IconButton onClick={handleMoreClick}>
-          <MoreVertIcon />
-        </IconButton>
-        <Popover 
-          open={open}
-          anchorEl={anchorEl}
-          onClose={handleMoreClose}
-        >
-            <ListItemButton>
-              <ListItemIcon>
-                <TurnedInIcon />
-              </ListItemIcon>
-              <ListItemText
-                primary='Save this question'
-              />
-            </ListItemButton>
-            <ListItemButton onClick={handleIssueClick}>
-              <ListItemIcon>
-                <BugReportIcon />
-              </ListItemIcon>
-              <ListItemText
-                primary='Report an issue'
-              />
-            </ListItemButton>
-
-            <Dialog open={issueDialogOpen} onClose={handleIssueClick}>
-              <DialogTitle>Report an Issue</DialogTitle>
-              <DialogContent>
-                <DialogContentText>
-                  Please describe the issue, and we will get back to you after investigation. Thanks!
-                </DialogContentText>
-                <TextField
-                  autoFocus
-                  margin="dense"
-                  id="name"
-                  label="Describe the issue"
-                  type="text"
-                  fullWidth
-                  variant="standard"
-                />
-              </DialogContent>
-              <DialogActions>
-                <Button onClick={handleIssueClick}>Cancel</Button>
-                <Button onClick={null}>Submit</Button>
-              </DialogActions>
-            </Dialog>
-        </Popover>
-      </>
-      }
-      
-    />
-      
+    
+    <QuestionCardHeader/>  
+    
     <CardContent sx={{height:'10em'}}>
       { questionData && <Typography paragraph> Question: {questionData[currentQuestion].questionNumber} </Typography>}
 
