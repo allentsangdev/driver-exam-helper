@@ -16,7 +16,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useFirestore } from '../contexts/FirestoreContext';
-import { Checkmark } from 'react-checkmark'
+import { Checkmark } from './checkmark/checkmark'
 
 export default function QuestionCardHeader() {
 
