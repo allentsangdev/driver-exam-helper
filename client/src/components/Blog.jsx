@@ -35,16 +35,18 @@ function Post(props) {
     return(
         <Grid item xs={8} md={3}>
             <Card sx={{Width:'100%', height:'100%'}}>
-                <CardActionArea component="a" href={props.post.route} sx={{Width:'100%', height:'100%'}}>
-                    <CardMedia
-                        component="img"
-                        sx={{ height: 160 }}
-                        image={props.post.image}
-                    />
-                    <CardContent>
-                        <Typography variant="h6"> {props.post.title} </Typography>
-                        <Typography variant="subtitle1" color="text.secondary"> {props.post.date} </Typography>
-                    </CardContent>                
+                <CardActionArea component='div' sx={{Width:'100%', height:'100%'}}>
+                    <Link to={props.post.route} style={{textDecoration: 'none'}}>
+                        <CardMedia
+                            component="img"
+                            sx={{ height: 160 }}
+                            image={props.post.image}
+                        />
+                        <CardContent>
+                            <Typography variant="h6"> {props.post.title} </Typography>
+                            <Typography variant="subtitle1" color="text.secondary"> {props.post.date} </Typography>
+                        </CardContent>
+                    </Link>  
                 </CardActionArea>            
             </Card>
         </Grid>
