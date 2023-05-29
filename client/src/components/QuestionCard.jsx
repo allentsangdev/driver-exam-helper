@@ -12,10 +12,9 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormHelperText from '@mui/material/FormHelperText';
 import FormLabel from '@mui/material/FormLabel';
 import Pagination from '@mui/material/Pagination';
-import CardHeader from '@mui/material/CardHeader';
-import IconButton from '@mui/material/IconButton';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
 import CircularProgress from '@mui/material/CircularProgress';
+import Grid from '@mui/material/Grid';
+import QuestionCardHeader from './QuestionCardHeader';
 
 function QuestionCard() {
   const [value, setValue] = React.useState('');
@@ -27,11 +26,11 @@ function QuestionCard() {
   const [questionData, setQuestionData ] = useState(null)
   const [currentQuestion, setCurrentQuestion] = useState(0)
 
-  //hool to handle loading spinner
+  // Hook to handle loading spinner
   const [loadStatus, setLoadStatus] = useState(false)
 
-  // component did mount hook
-  // fetch api when component render
+  // Component did mount hook
+  // Fetch api when component render
   useEffect(() => {
     axios.get(apiUri)
       .then(res => {
@@ -40,19 +39,11 @@ function QuestionCard() {
       })
   }, []);
 
-  /*
-  const switchQuestion = (_switchDirection) => {
-    if (currentQuestion > 0 || _switchDirection === 1) {
-      setCurrentQuestion((currentQuestionState) => currentQuestionState + _switchDirection)
-    }
-  }
-  */
-
   const handlePageChange = (event, pageSelected) => {
     console.log(questionData[pageSelected])
     setCurrentQuestion(pageSelected-1) // since array index starts at 0. -1 to match array index
+    setValue(null)
   }
-
 
   const handleRadioChange = (event) => {
     setValue(event.target.value);
@@ -94,10 +85,9 @@ function QuestionCard() {
 
   const cardContent = 
   <>
-    <CardHeader action={<IconButton>
-      <MoreVertIcon />
-    </IconButton>}/>
-      
+    
+    <QuestionCardHeader/>  
+    
     <CardContent sx={{height:'10em'}}>
       { questionData && <Typography paragraph> Question: {questionData[currentQuestion].questionNumber} </Typography>}
 
@@ -115,7 +105,7 @@ function QuestionCard() {
             {questionData && <FormControlLabel value="3" control={<Radio />} label={questionData[currentQuestion].option4} />}
           </RadioGroup>
 
-          <FormHelperText>{helperText}</FormHelperText>
+          <FormHelperText error={error}>{helperText}</FormHelperText>
           
           <Box display='flex' justifyContent='center'>
             <Button type="submit" variant="outlined"> Check Answer </Button>
@@ -127,11 +117,21 @@ function QuestionCard() {
       </Box>
     </>
 
+    const loadingContent = 
+    <>
+    <Grid container display='flex' flexDirection='column' justifyContent='center' alignItems='center' sx={{height:'65vh'}}>
+      <Grid item >
+        <CircularProgress/>
+      </Grid>
+
+    </Grid>
+    </>
+
   return (
     <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: "center", marginBottom:'12em', marginTop:'5em' }}>
       <Card variant="outlined" sx={{padding:'1em', width:'35em'}}>
           
-          {loadStatus? cardContent : <CardContent sx={{height:'10em'}}><CircularProgress/></CardContent> }
+          {loadStatus? cardContent : loadingContent }
 
       </Card>
     </Box>
@@ -139,16 +139,3 @@ function QuestionCard() {
 }
 
 export default QuestionCard;
-
-/* mockdata
-const mockData = {
-  _id: "641577fa7d058360fb2fc9e7",
-    questionNumber: "161",
-    question: "When approaching an intersection and the traffic lights are not working, you should:",
-    option1: "Yield to the traffic to your right",
-    option2: "Wait until there are no vehicles before proceeding",
-    option3: "Treat it as an all-ways stop sign",
-    option4: "Slow down and proceed with caution",
-    answer: "2"
-} 
-*/

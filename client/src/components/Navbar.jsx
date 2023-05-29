@@ -25,7 +25,7 @@ export default function Navbar() {
           <Typography textAlign='center' borderRadius='4%' bgcolor='white' color='#1e2e46' width='120px' sx={{cursor:'default'}} > Driver Quizlet </Typography>
           </Box>
           <Link to="/" style={{color: 'white', textDecoration: 'none'}}> <Button variant="contained" sx={{backgroundColor:"#4682B4"}}>HOME</Button></Link>
-          <Button color="inherit">Login</Button>
+          <Link to="/signin" style={{color: 'white', textDecoration: 'none'}}><Button color="inherit">Login</Button></Link>
         </Toolbar>
       </AppBar>
     </Box>
